@@ -7,15 +7,34 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Testes unitários da classe {@link Calculadora}.
+ *
+ * <p>Cada teste exibe no console a entrada utilizada, o resultado esperado
+ * e o resultado obtido, além de verificar o resultado com JUnit.</p>
+ *
+ * @author Pedro Cardoso Lima
+ * @version 2.0
+ */
 public class TesteCalculadora {
 
+    /** Calculadora testada, recriada antes de cada teste. */
     private Calculadora calculadora;
 
+    /** Cria uma nova calculadora antes de cada teste. */
     @BeforeEach
     void setUp() {
         calculadora = new Calculadora();
     }
 
+    /**
+     * Exibe no console os dados de um teste.
+     *
+     * @param teste    nome do teste
+     * @param entrada  valores enviados para a calculadora
+     * @param esperado resultado esperado
+     * @param obtido   resultado obtido
+     */
     private void exibir(String teste, String entrada, Object esperado, Object obtido) {
         System.out.println("[" + teste + "]");
         System.out.println("  Entrada:  " + entrada);
@@ -23,6 +42,7 @@ public class TesteCalculadora {
         System.out.println("  Obtido:   " + obtido);
     }
 
+    /** Verifica a soma de dois números positivos. */
     @Test
     @DisplayName("Soma: 10 + 5 = 15")
     void testeSoma() {
@@ -32,6 +52,7 @@ public class TesteCalculadora {
         assertEquals(esperado, obtido);
     }
 
+    /** Verifica a subtração de dois números positivos. */
     @Test
     @DisplayName("Subtração: 10 - 5 = 5")
     void testeSubtracao() {
@@ -41,6 +62,7 @@ public class TesteCalculadora {
         assertEquals(esperado, obtido);
     }
 
+    /** Verifica a multiplicação de dois números positivos. */
     @Test
     @DisplayName("Multiplicação: 10 * 5 = 50")
     void testeMultiplicacao() {
@@ -50,6 +72,7 @@ public class TesteCalculadora {
         assertEquals(esperado, obtido);
     }
 
+    /** Verifica se a divisão mantém a parte decimal do resultado. */
     @Test
     @DisplayName("Divisão: 7 / 2 = 3.5")
     void testeDivisao() {
@@ -59,6 +82,7 @@ public class TesteCalculadora {
         assertEquals(esperado, obtido);
     }
 
+    /** Verifica se a divisão por zero lança {@link ArithmeticException} com a mensagem correta. */
     @Test
     @DisplayName("Divisão por zero: 10 / 0 lança ArithmeticException")
     void testeDivisaoPorZero() {
@@ -69,6 +93,7 @@ public class TesteCalculadora {
         assertEquals("Erro: não é possível dividir por zero.", erro.getMessage());
     }
 
+    /** Verifica se um operador não suportado lança {@link IllegalArgumentException} com a mensagem correta. */
     @Test
     @DisplayName("Operação inválida: \"%\" lança IllegalArgumentException")
     void testeOperacaoInvalida() {
@@ -79,6 +104,7 @@ public class TesteCalculadora {
         assertEquals("Erro: operação inválida \"%\". Use +, -, * ou /.", erro.getMessage());
     }
 
+    /** Verifica se um operador nulo lança {@link IllegalArgumentException}. */
     @Test
     @DisplayName("Operação nula lança IllegalArgumentException")
     void testeOperacaoNula() {
