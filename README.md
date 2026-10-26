@@ -262,9 +262,7 @@ return switch (operador) {
 };
 ```
 
-Depois da refatoração, todos os testes foram executados novamente **sem nenhuma alteração** e os 7 continuaram aprovados, o que confirma que o comportamento do sistema foi mantido.
-
-![Testes após a refatoração](images/refatoracao/testes-apos-refatoracao.png)
+Depois da refatoração, todos os testes foram executados novamente **sem nenhuma alteração** e os 7 continuaram aprovados, o que confirma que o comportamento do sistema foi mantido (veja o print na seção 11).
 
 ---
 
@@ -280,11 +278,9 @@ A documentação HTML foi gerada na pasta `docs/`. Para visualizar, abra o arqui
 javadoc -private -encoding UTF-8 -docencoding UTF-8 -charset UTF-8 -author -version -d docs -sourcepath src -subpackages calculadora
 ```
 
-### Prints da documentação
+### Print da documentação
 
 ![Documentação JavaDoc](images/javadoc/javadoc-index.png)
-
-![JavaDoc da classe Calculadora](images/javadoc/javadoc-calculadora.png)
 
 ---
 
