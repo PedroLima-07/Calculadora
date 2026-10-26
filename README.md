@@ -9,10 +9,10 @@
 **Projeto:** Projeto Calculadora  
 **Contexto:** FinançApp  
 **Aluno:** Pedro Cardoso Lima  
-**RA:** XXXXXXX  
-**Curso:** Nome do curso  
-**Disciplina:** Nome da disciplina  
-**Professor:** Nome do professor  
+**RA:** 251311  
+**Curso:** Análise e Desenvolvimento de Sistemas  
+**Disciplina:** UI/UX e Testes de Software  
+**Professor:** Daniel Ohata  
 **Semestre:** 2026.2  
 
 ---
