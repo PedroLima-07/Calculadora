@@ -4,61 +4,75 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+
+    private static final int OPCAO_SOMA = 1;
+    private static final int OPCAO_SUBTRACAO = 2;
+    private static final int OPCAO_MULTIPLICACAO = 3;
+    private static final int OPCAO_DIVISAO = 4;
+    private static final int OPCAO_SAIR = 5;
+
+    private final Scanner entrada;
+    private final Calculadora calculadora;
+
+    public App(Scanner entrada, Calculadora calculadora) {
+        this.entrada = entrada;
+        this.calculadora = calculadora;
+    }
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Calculadora calc = new Calculadora();
-        int opt = 0;
+        try (Scanner entrada = new Scanner(System.in)) {
+            new App(entrada, new Calculadora()).executar();
+        }
+    }
+
+    public void executar() {
+        int opcaoEscolhida = 0;
 
         do {
-            System.out.println("\n=====================");
-            System.out.println("Escolha uma opção:");
-            System.out.println("1- Soma");
-            System.out.println("2- Subtração");
-            System.out.println("3- Multiplicação");
-            System.out.println("4- Divisão");
-            System.out.println("5- Sair");
-            System.out.println("======================");
-
+            exibirMenu();
             try {
-                opt = sc.nextInt();
-                if (opt == 1) {
-                    System.out.println("Digite o primeiro número:");
-                    int n1 = sc.nextInt();
-                    System.out.println("Digite o segundo número:");
-                    int n2 = sc.nextInt();
-                    System.out.println("Resultado da soma: " + calc.calc(n1, n2, "+"));
-                } else if (opt == 2) {
-                    System.out.println("Digite o primeiro número:");
-                    int n1 = sc.nextInt();
-                    System.out.println("Digite o segundo número:");
-                    int n2 = sc.nextInt();
-                    System.out.println("Resultado da subtração: " + calc.calc(n1, n2, "-"));
-                } else if (opt == 3) {
-                    System.out.println("Digite o primeiro número:");
-                    int n1 = sc.nextInt();
-                    System.out.println("Digite o segundo número:");
-                    int n2 = sc.nextInt();
-                    System.out.println("Resultado da multiplicação: " + calc.calc(n1, n2, "*"));
-                } else if (opt == 4) {
-                    System.out.println("Digite o primeiro número:");
-                    int n1 = sc.nextInt();
-                    System.out.println("Digite o segundo número:");
-                    int n2 = sc.nextInt();
-                    System.out.println("Resultado da divisão: " + calc.calc(n1, n2, "/"));
-                } else if (opt == 5) {
-                    System.out.println("Saindo...");
-                } else {
-                    System.out.println("Opção inválida. Tente novamente.");
-                }
-            } catch (ArithmeticException e) {
-                System.out.println(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            } catch (InputMismatchException e) {
+                opcaoEscolhida = entrada.nextInt();
+                processarOpcao(opcaoEscolhida);
+            } catch (ArithmeticException | IllegalArgumentException erro) {
+                System.out.println(erro.getMessage());
+            } catch (InputMismatchException erro) {
                 System.out.println("Entrada inválida. Digite apenas números inteiros.");
-                sc.nextLine();
+                entrada.nextLine();
             }
-        } while (opt != 5);
-        sc.close();
+        } while (opcaoEscolhida != OPCAO_SAIR);
+    }
+
+    private void exibirMenu() {
+        System.out.println("\n=====================");
+        System.out.println("Escolha uma opção:");
+        System.out.println(OPCAO_SOMA + "- Soma");
+        System.out.println(OPCAO_SUBTRACAO + "- Subtração");
+        System.out.println(OPCAO_MULTIPLICACAO + "- Multiplicação");
+        System.out.println(OPCAO_DIVISAO + "- Divisão");
+        System.out.println(OPCAO_SAIR + "- Sair");
+        System.out.println("======================");
+    }
+
+    private void processarOpcao(int opcao) {
+        switch (opcao) {
+            case OPCAO_SOMA -> executarOperacao(Calculadora.SOMA, "soma");
+            case OPCAO_SUBTRACAO -> executarOperacao(Calculadora.SUBTRACAO, "subtração");
+            case OPCAO_MULTIPLICACAO -> executarOperacao(Calculadora.MULTIPLICACAO, "multiplicação");
+            case OPCAO_DIVISAO -> executarOperacao(Calculadora.DIVISAO, "divisão");
+            case OPCAO_SAIR -> System.out.println("Saindo...");
+            default -> System.out.println("Opção inválida. Tente novamente.");
+        }
+    }
+
+    private void executarOperacao(String operador, String nomeOperacao) {
+        int primeiroNumero = lerInteiro("Digite o primeiro número:");
+        int segundoNumero = lerInteiro("Digite o segundo número:");
+        double resultado = calculadora.calc(primeiroNumero, segundoNumero, operador);
+        System.out.println("Resultado da " + nomeOperacao + ": " + resultado);
+    }
+
+    private int lerInteiro(String mensagem) {
+        System.out.println(mensagem);
+        return entrada.nextInt();
     }
 }
